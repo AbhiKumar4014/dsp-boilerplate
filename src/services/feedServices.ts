@@ -21,7 +21,7 @@ async function getFeedById(id: Pick<Feed, 'id'>): Promise<Feed> {
     }
 }
 
-async function createFeed(): Promise<Feed> {
+async function createFeed(feed: Omit<Feed, 'id'>): Promise<Feed> {
     return {
         id: 78,
         name: "Dojo pbr",

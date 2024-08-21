@@ -1,5 +1,5 @@
 import { Feed } from '../types/feedTypes';
-async function getFeeds(): Promise<Omit<Feed, 'config'>[]> {
+async function getFeeds(): Promise<Omit<Feed, 'config' | 'queryParams'>[]> {
     return [
         {
             id: 78,
@@ -10,18 +10,26 @@ async function getFeeds(): Promise<Omit<Feed, 'config'>[]> {
     ];
 }
 
-async function getFeedById(): Promise<Feed> {
+async function getFeedById(id: Pick<Feed, 'id'>): Promise<Feed> {
     return {
         id: 78,
-            name: "Dojo pbr",
-            description: "feed",
-            path: "tbn/dojo-pbr",
-            config: { assetFilter: [], playlistFilters: [] },
+        name: "Dojo pbr",
+        description: "feed",
+        path: "tbn/dojo-pbr",
+        config: { assetFilter: [], playlistFilters: [] },
+        queryParams: [{ name: "playlistId", type: "string", required: true }],
     }
 }
 
-function createFeed() {
-    // To get feed by ID
+async function createFeed(): Promise<Feed> {
+    return {
+        id: 78,
+        name: "Dojo pbr",
+        description: "feed",
+        path: "tbn/dojo-pbr",
+        config: { assetFilter: [], playlistFilters: [] },
+        queryParams: [{ name: "playlistId", type: "string", required: true }],
+    }
 }
 
 function updateFeed() {

@@ -9,7 +9,7 @@ import {
     PostFeedRequestBody,
     UpdateFeedRequestBody
 } from '../types/feedTypes';
-import { getFeeds } from '../services/feedServices';
+import { getFeeds, createFeed, getFeedById } from '../services/feedServices';
 
 const feedRouter = Router();
 
@@ -19,12 +19,12 @@ feedRouter.get('/feed', async (req: Request, res: Response<GetFeedsResponse>) =>
 });
 
 feedRouter.post('/feed', async (req: Request<{}, PostFeedResponse, PostFeedRequestBody>, res: Response<PostFeedResponse>) => {
-    const responseData: PostFeedResponse = { data: req.body };
+    const responseData: PostFeedResponse = { data: await createFeed() };
     res.send(responseData);
 });
 
-feedRouter.get('/feed/:feedId', async (req: Request<{ feedId: string }>, res: Response<GetFeedResponse>) => {
-    const responseData: GetFeedResponse = { data: {} as Feed };
+feedRouter.get('/feed/:feedId', async (req: Request<{ feedId: Pick<Feed, 'id'> }>, res: Response<GetFeedResponse>) => {
+    const responseData: GetFeedResponse = { data: await getFeedById(req.params.feedId) };
     res.send(responseData);
 });
 

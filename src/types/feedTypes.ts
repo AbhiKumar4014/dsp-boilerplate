@@ -1,14 +1,21 @@
+export type FeedQueryParams = {
+    "name": string,
+    "type": string,
+    "required": boolean
+}
+
 export type Feed = {
     id: number;
     name: string;
     description?: string;
     path: string;
     config: object;
+    queryParams: FeedQueryParams[];
 };
 
 export type GetFeedsResponse = {
     // data: Feed[];
-    data: Omit<Feed, 'config'>[];
+    data: Omit<Feed, 'config' |'queryParams'>[];
 };
 
 export type PostFeedResponse = {
@@ -27,5 +34,5 @@ export type DeleteFeedResponse = {
     message: string;
 };
 
-export type PostFeedRequestBody = Feed;
+export type PostFeedRequestBody = Omit<Feed, 'id'>;
 export type UpdateFeedRequestBody = Feed;

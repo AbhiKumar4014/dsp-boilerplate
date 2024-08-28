@@ -290,7 +290,7 @@ This documentation should help you get started with repository and database oper
   - **Failure**: When the operation fails, the function returns an object containing an error message.
     ```json
     {
-      "error": string
+      "error": "string"
     }
     ```
     The `error` field contains a string describing the error that occurred.

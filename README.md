@@ -1,5 +1,14 @@
 # Microservises-boilerplate
 
+### Table of Contents
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Introduction](#introduction)
+- [OpenAPI Docs](#openapi-docs)
+- [Overview of Repository Functions](#overview-of-repository-functions)
+- [Routes](#routes-docs)
+
 ## Quick Start
 
 To get started with this project, follow the steps below:
@@ -50,14 +59,6 @@ npm start -- server [--port PORTNUMBER]
 - **Database Migrations**: Schema migrations and client generation with Prisma CLI
 - **Type Definitions**: TypeScript definitions for Express, Pino, Node.js, Swagger UI, and YAML
 
-### Table of Contents
-
-- [Quick Start](#quick-start)
-- [Features](#features)
-- [Introduction](#introduction)
-- [OpenAPI Docs](#openapi-docs)
-- [Overview of Repository Functions](#overview-of-repository-functions)
-- [Routes](#routes-docs)
 
 ## Introduction
 

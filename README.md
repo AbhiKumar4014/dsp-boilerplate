@@ -186,13 +186,13 @@ This documentation should help you get started with repository and database oper
         ```
     - **`deleteFeed(feedId: string)`**: Deletes a feed record by ID.
     - return type: If the feed is successfully deleted, then the response is
-      ````json
+      ```json
        {
          "data": null
        }
-       ```
+       ```  
+
       These functions interact with the Prisma ORM to perform the CRUD operations on the `Feed` model, ensuring that all interactions with the database are handled efficiently and consistently.
-      ````
 
   - #### Filter
 
@@ -255,7 +255,7 @@ This documentation should help you get started with repository and database oper
       ```
     - **`deleteFilter(filterId: string)`**: Deletes a filter by ID.
     - return type: If the filter is successfully deleted, then the response is
-      ````json
+      ```json
        {
          "data": null
        }

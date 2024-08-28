@@ -1,10 +1,15 @@
 # Microservises-boilerplate
 
-## Project Setup and Commands
+## Quick Start
 
 To get started with this project, follow the steps below:
 
 **Initial Setup**:
+
+**Clone Repository**:
+```
+git clone https://github.com/tecnics-python/dsp-boilerplate
+```
 
 **Install Dependencies**:
 
@@ -12,7 +17,7 @@ To get started with this project, follow the steps below:
 npm install
 ```
 
-**Start the Server**:
+**Start the Server**: To run the application
 
 ```
 npm start server
@@ -21,18 +26,36 @@ npm start server
 **Start the Server with Specific Port**:
 ```
 npm start -- server [-p PORTNUMBER]
-or
+          or
 npm start -- server [--port PORTNUMBER]
 ```
 
-# Documentation
+# Features
+
+- **SQL Database**: PostgreSQL object data modeling using Prisma ORM
+- **Queue Management**: Job queue processing using BullMQ
+- **Command-line Interface**: CLI commands and argument parsing using Commander
+- **CSV Parsing**: CSV file processing with `csv-parser`
+- **Environment Variables**: Secure configuration management using `dotenv`
+- **Error Handling**: Custom error handling with `errors` library
+- **Logging**: High-performance logging using `pino`, `pino-http`, and `pino-multi-stream`
+- **API Documentation**: API documentation with `swagger-ui-express` and OpenAPI validation using `express-openapi-validator`
+- **YAML Parsing**: YAML file processing with `yamljs`
+- **Type Conversion**: TypeScript to OpenAPI schema conversion using `typeconv`
+- **Testing**: Unit testing with Jest and `ts-jest`
+- **TypeScript Support**: TypeScript setup and compilation using `typescript`, `ts-node`, `ts-node-dev`, and `tsup`
+- **Build and Deployment**: Build management with `tsup` and file copying with `copyfiles`
+- **Database Migrations**: Schema migrations and client generation with Prisma CLI
+- **Type Definitions**: TypeScript definitions for Express, Pino, Node.js, Swagger UI, and YAML
+
 
 ### Table of Contents
-
-1. [Introduction](#introduction)
-2. [OpenAPI Docs](#openapi-docs)
-3. [Prisma ORM Overview](#prisma-orm-overview)
-5. [Useful Links](#useful-links)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Introduction](#introduction)
+- [OpenAPI Docs](#openapi-docs)
+- [Overview of Repository Functions](#overview-of-repository-functions)
+- [Routes](#routes-docs)
 
 ## Introduction
 
@@ -40,79 +63,87 @@ npm start -- server [--port PORTNUMBER]
 
 ## routes docs
 
-## Database Operations Documentation
+## Overview of Repository Functions
 
 This documentation provides an overview of repository and database operations, with a focus on using Prisma ORM.
 
+
 ### Introduction
 
-This document aims to provide a comprehensive guide to repository and database operations, specifically using Prisma ORM. Whether you are new to Prisma or looking to enhance your skills, this guide will help you get started and perform basic database operations efficiently.
+This document aims to provide a comprehensive guide to repository and database operations, specifically using Prisma ORM with a PostgreSQL relational database. Whether you are new to Prisma or looking to enhance your skills, this guide will help you get started and perform basic database operations efficiently.
+
+**Prisma ORM Integration:** Utilizes Prisma ORM for database operations, including migrations and client generation.
+
+**Schema Management:** Handles schema migrations with Prisma, specified in the `./src/prisma/schema.prisma` file.
+
+**Seeding:** Seeds the database with initial data using `src/repos/seed.ts`.
+### Prisma ORM Overview
+Prisma provides a type-safe database client and a powerful data modeling tool. Key features include:
+
+- **Automatic Type Safety**: Reduces runtime errors by providing type safety.
+- **Intuitive Data Modeling**: Easy-to-use schema definition and migrations.
+- **Efficient Queries**: Optimized query performance and database access.
+
+- #### Useful Links
+
+  - [Prisma Documentation](https://www.prisma.io/docs/)
+  - [Prisma GitHub Repository](https://github.com/prisma/prisma)
+  - [Prisma Examples](https://github.com/prisma/prisma-examples)
+  - [Prisma Blog](https://www.prisma.io/blog/)
+
+This documentation should help you get started with repository and database operations using Prisma ORM. For more detailed information, refer to the official Prisma documentation and resources.
+
+### Models
+
+- #### Feed
+  - **id**: String @id @default(cuid())
+  - **path**: String @unique
+  - **name**: String
+  - **config**: Json
+  - **queryParams**: Json[]
+
+- #### Filter
+  - **id**: String @id @default(cuid())
+  - **name**: String @unique
+  - **description**: String
+  - **type**: String
+  - **code**: String?
+  - **filterParams**: Json[] @default([])
+
+- #### adBreaks
+  - **mediaId**: String @id @unique
+  - **markers**: Json
 
 ### Getting Started
 
-To get started with Prisma ORM, follow these steps:
-
-1. **Install Prisma CLI:**
-   ```
-   npm install @prisma/cli --save-dev
-   ```
-
-2. **Initialize Prisma:**
-   ```
-   npx prisma init
-   ```
-
-3. **Configure your database in `prisma/.env` file.**
-
-### Prisma ORM Overview
-
-Prisma is an open-source database toolkit that makes it easy to work with databases in Node.js and TypeScript applications. It provides a type-safe database client and an intuitive data modeling tool.
-
-### Basic Operations
-
-Here are some basic operations you can perform with Prisma:
-
 - **Connect to the database:**
   ```javascript
-  const { PrismaClient } = require('@prisma/client');
-  const prisma = new PrismaClient();
+  import prisma from '../../src/repos/connection'
   ```
 
-- **Create a new record:**
-  ```javascript
-  const newUser = await prisma.user.create({
-    data: {
-      name: 'Alice',
-      email: 'alice@prisma.io',
-    },
-  });
-  ```
+- #### Repository Functions
+  This boilerplate provides a structured approach to managing database operations through repository functions. Below is an overview of key repository functions:
 
-- **Read records:**
-  ```javascript
-  const allUsers = await prisma.user.findMany();
-  ```
+  - #### Feed 
 
-- **Update a record:**
-  ```javascript
-  const updatedUser = await prisma.user.update({
-    where: { id: 1 },
-    data: { name: 'Alice Wonderland' },
-  });
-  ```
+    The `Feed` repository is responsible for managing operations related to the `Feed` model. Key functions include:
 
-- **Delete a record:**
-  ```javascript
-  const deletedUser = await prisma.user.delete({
-    where: { id: 1 },
-  });
-  ```
+    - **`getFeeds()`**: Fetches all feed records from the database.
+    - **`getFeedById(feedId: string)`**: Retrieves a specific feed by its ID.
+    - **`createFeed(req: { path: string, name: string, config: object, queryParams: FeedQueryParams[] })`**: Creates a new feed record with the specified parameters.
+    - **`updateFeed(feedId: string, updates: { path?: string, name?: string, config: {}, queryParams: FeedQueryParams[] })`**: Updates an existing feed record by ID.
+    - **`deleteFeed(feedId: string)`**: Deletes a feed record by ID.
 
-### Useful Links
+    These functions interact with the Prisma ORM to perform the CRUD operations on the `Feed` model, ensuring that all interactions with the database are handled efficiently and consistently.
 
-- [Prisma Documentation](https://www.prisma.io/docs/)
-- [Prisma GitHub Repository](https://github.com/prisma/prisma)
-- [Prisma Examples](https://github.com/prisma/prisma-examples)
-- [Prisma Blog](https://www.prisma.io/blog/)
+  - #### Filter 
 
-This documentation should help you get started with repository and database operations using Prisma ORM. For more detailed information, refer to the official Prisma documentation and resources.
+    The `Filter` repository handles operations related to the `Filter` model. Key functions include:
+
+    - **`getFilters()`**: Retrieves all filter records from the database.
+    - **`getFilterById(filterId: string)`**: Retrieves a specific filter by its ID.
+    - **`createFilter(req: { name: string, type: string, description?: string, code?: string | null, filterParams: FilterParams[] })`**: Creates a new filter with the provided details.
+    - **`updateFilter(filterId: string, updates: { name?: string, type?: string, description?: string, code?: string | null, filterParams: FilterParams[] })`**: Updates an existing filter by ID.
+    - **`deleteFilter(filterId: string)`**: Deletes a filter by ID.
+
+    These repository functions ensure that the `Filter` model is managed effectively, enabling precise filtering capabilities within your application.

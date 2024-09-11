@@ -8,6 +8,29 @@
 - [OpenAPI Docs](#openapi-docs)
 - [Overview of Repository Functions](#overview-of-repository-functions)
 - [Routes](#routes-docs)
+/your-project-root
+│
+├── /src                  # Application source code
+│   ├── /models            # Database models
+│   ├── /controllers       # API controllers
+│   ├── /routes            # API routes
+│   ├── app.ts             # Main app file
+│   └── ...                # Other source files
+│
+├── /config                # Configuration files
+│   └── db.ts              # Database connection config
+│
+├── /prisma                # Prisma files (if using Prisma ORM)
+│   ├── schema.prisma
+│   └── migrations/
+│
+├── Dockerfile             # Dockerfile for building the app
+├── docker-compose.yml     # Docker Compose file for services
+├── start.sh               # Startup script for Docker
+├── package.json           # Package file with dependencies
+├── yarn.lock              # Yarn lock file
+├── tsconfig.json          # TypeScript configuration
+└── .env                   # Environment variables file
 
 ## Quick Start
 
